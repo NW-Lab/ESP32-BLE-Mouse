@@ -1,7 +1,7 @@
 /**
  * This example turns the ESP32 into a Bluetooth LE mouse that scrolls down every 2 seconds.
  */
-#include <BleMouse.h>
+#include <BleMouseC6.h>
 
 BleMouse bleMouse;
 

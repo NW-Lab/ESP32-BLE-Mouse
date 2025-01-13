@@ -1,7 +1,7 @@
 /**
  * This example turns the ESP32 into a Bluetooth LE mouse that continuously moves the mouse.
  */
-#include <BleMouse.h>
+#include <BleMouseC6.h>
 
 BleMouse bleMouse;
 
