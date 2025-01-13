@@ -9,7 +9,7 @@
 #include "sdkconfig.h"
 
 #include "BleConnectionStatus.h"
-#include "BleMouse.h"
+#include "BleMouseC6.h"
 
 #if defined(CONFIG_ARDUHAL_ESP_LOG)
   #include "esp32-hal-log.h"
@@ -140,7 +140,7 @@ void BleMouse::setBatteryLevel(uint8_t level) {
 
 void BleMouse::taskServer(void* pvParameter) {
   BleMouse* bleMouseInstance = (BleMouse *) pvParameter; //static_cast<BleMouse *>(pvParameter);
-  BLEDevice::init(bleMouseInstance->deviceName);
+  BLEDevice::init(bleMouseInstance->deviceName.cstr());
   BLEServer *pServer = BLEDevice::createServer();
   pServer->setCallbacks(bleMouseInstance->connectionStatus);
 
@@ -148,7 +148,7 @@ void BleMouse::taskServer(void* pvParameter) {
   bleMouseInstance->inputMouse = bleMouseInstance->hid->inputReport(0); // <-- input REPORTID from report map
   bleMouseInstance->connectionStatus->inputMouse = bleMouseInstance->inputMouse;
 
-  bleMouseInstance->hid->manufacturer()->setValue(bleMouseInstance->deviceManufacturer);
+  bleMouseInstance->hid->manufacturer()->setValue(bleMouseInstance->deviceManufacturer.cstr());
 
   bleMouseInstance->hid->pnp(0x02, 0xe502, 0xa111, 0x0210);
   bleMouseInstance->hid->hidInfo(0x00,0x02);
